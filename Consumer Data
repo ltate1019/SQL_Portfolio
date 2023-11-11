@@ -1,44 +1,51 @@
+#In this project customers sales data was looked into for different months throughout the year. 
+#Counted the total sales made in Janurary:
 SELECT COUNT(orderID)
 FROM BIT_DB.JanSales
 WHERE length(orderID) = 6
-AND orderID <> 'Order ID';
+AND orderID <> "Order ID"; 
 
+#Counted the total sales made in Janurary for iPhones:
 SELECT COUNT(orderID)
 FROM BIT_DB.JanSales
 WHERE length(orderID) = 6
-AND orderID <> 'Order ID'
-AND product = 'iPhone';
+AND orderID <> "Order ID" 
+AND product = "iPhone";
 
-SELECT COUNT(distinct acctnum)
+#Selected the customer account numbers for all orders placed in February:
+SELECT DISTINCT C.acctnum
 FROM BIT_DB.customers C
-INNER JOIN BIT_DB.FebSales FS
-ON C.order_id = FS.orderID
-WHERE length(FS.orderID)= 6
-AND length(FS.orderID) <> 'Order ID';
+INNER JOIN BIT_DB.FebSales F
+ON F.orderID = C.order_ID
+WHERE length(orderID) = 6
+AND orderID <> "Order ID";
 
-SELECT distinct product, MIN(price)
+#Selected the price and cheapest product sold in Janurary:
+SELECT Product, MIN(price) AS cheapest_product
 FROM BIT_DB.JanSales
-GROUP BY product, price
-ORDER BY price ASC LIMIT 1;
+GROUP BY product
+ORDER BY price ASC 
+LIMIT 1;
 
-SELECT product, 
-ROUND((SUM(Quantity) * price),2) AS total_revenue
+#Calculated the total revenue per product sold in Janurary:
+SELECT Product, ROUND(SUM(Quantity) * price,2) AS total_revenue
 FROM BIT_DB.JanSales
-GROUP BY product;
+GROUP BY Product; 
 
-SELECT product,
-location,
-SUM(Quantity),
-ROUND((SUM(Quantity) * price),2) AS total_revenue
+#Selected the product, quantity, and total revenue per product sold at a distinct location: 
+SELECT Product,
+SUM(Quantity) AS total_sold,
+ROUND(SUM(Quantity) * price,2) AS total_revenue
 FROM BIT_DB.FebSales
-WHERE location = '548 Lincoln St, Seattle, WA 98101'
-GROUP BY product;
+WHERE location = "548 Lincoln St, Seattle, WA 98101"
+GROUP BY Product;
 
-SELECT ROUND(AVG(quantity * price),2), 
-COUNT(distinct C.acctnum)
-FROM BIT_DB.FebSales FS
+#Selected the customer account number, and calculated the average spent per account in February: 
+SELECT COUNT(DISTINCT C.acctnum), ROUND(AVG(F.Quantity * F.price),2) AS avg_spent
+FROM BIT_DB.FebSales F
 LEFT JOIN BIT_DB.customers C
-ON FS.orderID = C.order_ID
-WHERE FS.Quantity > 2
-AND length(orderID) = 6
-AND orderID <> 'Order ID';
+ON F.orderID = C.order_id
+WHERE F.Quantity > 2
+AND orderID <> "Order ID"
+AND length(orderID) = 6; 
+
