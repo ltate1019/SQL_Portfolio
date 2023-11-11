@@ -1,4 +1,5 @@
-#In this project customers sales data was looked into for different months throughout the year. 
+#In this project customers sales data from different tables were looked into: 
+
 #Counted the total sales made in Janurary:
 SELECT COUNT(orderID)
 FROM BIT_DB.JanSales
