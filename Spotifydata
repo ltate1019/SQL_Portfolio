@@ -1,0 +1,25 @@
+SELECT artist_name, duration_ms
+FROM Spotifydata
+ORDER BY duration_ms DESC;
+
+SELECT artist_name, duration_ms,
+CASE
+    WHEN duration_ms >= 20000 THEN 'At Least 3.3 minutes'
+    WHEN duration_ms >= 150000 THEN 'At Least 2.5 minutes' 
+    ELSE 'Less than 2.5 minutes'
+    END AS duration_in_minutes 
+FROM Spotifydata;
+
+SELECT MIN(liveness), artist_name
+FROM Spotifydata;
+
+SELECT SUM(duration_ms), COUNT(id), ROUND(SUM(duration_ms) / COUNT(id),2) AS avg_duration
+FROM Spotifydata;
+
+SELECT popularity, energy, artist_name
+FROM Spotifydata
+ORDER BY energy desc 
+LIMIT 10;
+
+SELECT AVG(popularity)
+FROM Spotifydata;
