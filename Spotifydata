@@ -1,7 +1,9 @@
+#Which artist had the longest song?
 SELECT artist_name, duration_ms
 FROM Spotifydata
 ORDER BY duration_ms DESC;
 
+#Classified each song by its duration(>/=3.3min, 2.5min - 3.3min, <2.5min)
 SELECT artist_name, duration_ms,
 CASE
     WHEN duration_ms >= 20000 THEN 'At Least 3.3 minutes'
@@ -10,16 +12,20 @@ CASE
     END AS duration_in_minutes 
 FROM Spotifydata;
 
+#Which artist had the lowest liveness?
 SELECT MIN(liveness), artist_name
 FROM Spotifydata;
 
+#What was the average duration of a song? 
 SELECT SUM(duration_ms), COUNT(id), ROUND(SUM(duration_ms) / COUNT(id),2) AS avg_duration
 FROM Spotifydata;
 
+#Which artist had the highest energy for their song and was that correlated to popularity?
 SELECT popularity, energy, artist_name
 FROM Spotifydata
 ORDER BY energy desc 
 LIMIT 10;
 
+#What was the average popularity of the songs? 
 SELECT AVG(popularity)
 FROM Spotifydata;
