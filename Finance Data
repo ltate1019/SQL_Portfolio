@@ -1,15 +1,18 @@
+#What were the issues and how many issues for each complaint related to student loans were there? 
 SELECT product, issue, COUNT(issue)
 FROM consumer_complaints
 WHERE product = 'Student loan'
 AND sub_issue <> 'NULL'
 GROUP BY issue;
 
+#What companies had the most complaints related to mortgages?
 SELECT product, company, COUNT(company)
 FROM consumer_complaints
 WHERE product = 'Mortgage'
 GROUP BY company
 ORDER BY COUNT(company) DESC;
 
+#How were the complaints submitted and who submitted them? 
 SELECT tags, COUNT(tags), submitted_via
 FROM consumer_complaints
 WHERE tags <> 'NULL'
