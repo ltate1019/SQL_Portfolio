@@ -1,0 +1,16 @@
+SELECT product, issue, COUNT(issue)
+FROM consumer_complaints
+WHERE product = 'Student loan'
+AND sub_issue <> 'NULL'
+GROUP BY issue;
+
+SELECT product, company, COUNT(company)
+FROM consumer_complaints
+WHERE product = 'Mortgage'
+GROUP BY company
+ORDER BY COUNT(company) DESC;
+
+SELECT tags, COUNT(tags), submitted_via
+FROM consumer_complaints
+WHERE tags <> 'NULL'
+GROUP BY submitted_via;
