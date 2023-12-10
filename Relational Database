@@ -1,24 +1,30 @@
+#Which customers live outside of the USA? 
 SELECT Customerid, FirstName, LastName, Country
 FROM chinook.customers
 WHERE Country <> "USA";
 
+#Which customers live in Brazil? 
 SELECT Customerid, FirstName, LastName, Country
 FROM chinook.customers
 WHERE Country = "Brazil";
 
+#Who are the customers and what are their invoices who live in Brazil? 
 SELECT CC.FirstName, CC.LastName, CI.BillingCountry, CI.Invoiceid, CI.InvoiceDate
 FROM chinook.invoices CI
 LEFT JOIN chinook.customers CC
 ON CI.Customerid = CC.Customerid
 WHERE BillingCountry = "Brazil";
 
+#Who are the employees that are Sales Agents? 
 SELECT Employeeid, FirstName, LastName, Title
 FROM chinook.employees
 WHERE Title LIKE "%Sales % Agent%";
 
+#What are all of the billing countries for the customers? 
 SELECT DISTINCT BillingCountry
 FROM chinook.invoices;
 
+#Which invoices are associated with which employees? 
 SELECT I.invoiceId, E.FirstName, E.LastName
 FROM chinook.invoices I
 JOIN chinook.customers C
@@ -26,6 +32,7 @@ ON I.CustomerId = C.CustomerId
 JOIN chinook.employees E
 ON C.SupportRepId = E.EmployeeId;
 
+#What is the invoice total for each invoice? Who is the customer associated with that invoice? Who is the employee associated with that invoice? 
 SELECT IT.UnitPrice * SUM(IT.Quantity) AS Invoice_Total, I.invoiceId, C.FirstName, C.LastName, C.Country, E.FirstName, E.LastName
 FROM chinook.invoice_items IT
 INNER JOIN chinook.invoices I
@@ -36,19 +43,23 @@ INNER JOIN chinook.employees E
 ON C.SupportRepId = E.EmployeeId
 GROUP BY I.invoiceId;
 
+#What were the total number of invoices in 2009? 
 SELECT COUNT(*)
 FROM chinook.invoices
 WHERE InvoiceDate LIKE "2009%";
 
+#What were the total sales in 2009? 
 SELECT ROUND(SUM(Total),2) AS Total_Sales
 FROM chinook.invoices
 WHERE InvoiceDate LIKE "2009%";
 
+#What is the invoice id for each track? 
 SELECT I.InvoiceId, T.Name
 FROM chinook.invoice_items I
 INNER JOIN chinook.tracks T 
 ON I.TrackId = T.TrackId;
 
+#What are the invoice id's, track name's, and artist name's for each invoice? 
 SELECT I.InvoiceId, T.Name AS Track_Name, A.Name AS Artist_Name
 FROM chinook.invoice_items I
 LEFT JOIN chinook.tracks T 
@@ -58,6 +69,7 @@ ON AL.AlbumId = T.AlbumId
 LEFT JOIN chinook.artists A
 ON AL.ArtistId = A.ArtistId;
 
+#What are the track names, album titles, genre, and media type for each track? 
 SELECT T.Name AS Track_Name, 
 A.Title AS Album_Title,
 MT.Name AS Media_Type_Name,
@@ -70,6 +82,7 @@ ON T.Albumid = A.Albumid
 JOIN chinook.genres G
 ON T.Genreid = G.Genreid; 
 
+#What is the total amount of sales for each employee? 
 SELECT C.SupportRepId, E.FirstName, E.LastName, ROUND(SUM(I.Total),2)
 FROM chinook.customers C
 INNER JOIN chinook.employees E
@@ -78,6 +91,7 @@ INNER JOIN chinook.invoices I
 ON C.Customerid = I.CustomerId
 GROUP BY C.SupportRepId;
 
+#What was the total amount of sales for each employee in 2009? (showing the result from highest amount to lowest amount for each employee)
 SELECT E.FirstName, E.LastName, ROUND(SUM(I.Total),2) AS Total_Sales
 FROM chinook.employees E 
 JOIN chinook.customers C
