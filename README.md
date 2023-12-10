@@ -1,3 +1,3 @@
 # Lauren Tate's SQL Portfolio 
 
-## Hello! My name is Lauren Tate and I am currently an analytical chemist aspiring to be a data analyst! Please feel free to take a look at my portfolio on projects I have worked! 
+## Hello! My name is Lauren Tate and here are my SQL projects that I have worked on! If you have any questions please reach out to me at ltate1019@gmail.com! 
